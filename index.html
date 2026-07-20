@@ -21,7 +21,7 @@
   #cp2{top:0; transform:rotate(180deg); background:linear-gradient(180deg,#101726,#0a0d13);}
   #cp1{bottom:0; background:linear-gradient(0deg,#161226,#0a0d13);}
   .cinner{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2vh; padding:12px;}
-  .crow{display:flex; align-items:center; justify-content:center; gap:1vw; width:100%;}
+  .crow{display:flex; align-items:center; justify-content:center; gap:2.5vw; width:100%;}
   .crow .zl,.crow .zr{flex:1 1 0; display:flex; align-items:center; justify-content:center; gap:2vw; min-width:0;}
   .crow .zc{display:flex; align-items:center; justify-content:center; gap:3vw;}
   .chp{font-size:min(17vh,22vw); font-weight:900; line-height:1; min-width:2ch; text-align:center; font-variant-numeric:tabular-nums; margin:0 min(4.5vh,7vw);}
@@ -47,11 +47,10 @@
     <span class="cname">PLAYER 2</span>
     <div class="cinner">
       <div class="crow">
-        <span class="zl"><button class="csmall" onclick="resetHP(2)">↻ RESET LP</button></span>
-        <span class="zc"><span class="clabel">LIFE POINT</span></span>
-        <span class="zr"><button class="csmall" onclick="chgMax(2,-1)">Max −</button>
+        <button class="csmall" onclick="resetHP(2)">↻ RESET LP</button>
+        <button class="csmall" onclick="chgMax(2,-1)">Max −</button>
         <span class="clabel" id="cmax2">30</span>
-        <button class="csmall" onclick="chgMax(2,1)">Max +</button></span>
+        <button class="csmall" onclick="chgMax(2,1)">Max +</button>
       </div>
       <div class="crow">
         <button class="cbig" onclick="chgHP(2,-1)">−</button>
@@ -73,11 +72,10 @@
     <span class="cname">PLAYER 1</span>
     <div class="cinner">
       <div class="crow">
-        <span class="zl"><button class="csmall" onclick="resetHP(1)">↻ RESET LP</button></span>
-        <span class="zc"><span class="clabel">LIFE POINT</span></span>
-        <span class="zr"><button class="csmall" onclick="chgMax(1,-1)">Max −</button>
+        <button class="csmall" onclick="resetHP(1)">↻ RESET LP</button>
+        <button class="csmall" onclick="chgMax(1,-1)">Max −</button>
         <span class="clabel" id="cmax1">30</span>
-        <button class="csmall" onclick="chgMax(1,1)">Max +</button></span>
+        <button class="csmall" onclick="chgMax(1,1)">Max +</button>
       </div>
       <div class="crow">
         <button class="cbig" onclick="chgHP(1,-1)">−</button>
@@ -96,7 +94,8 @@
     </div>
   </div>
   <div id="cmid">
-    <button class="btn primary" onclick="pickFirst()">🎲 FIRST!</button>
+    <button class="btn primary" id="cfirstBtn" onclick="pickFirst()">🎲 FIRST!</button>
+    <button class="btn" onclick="toggleFS()">⛶ เต็มจอ</button>
     <button class="btn" onclick="resetGame()">↻ เริ่มใหม่</button>
   </div>
   <div id="cfirstMsg"></div>
@@ -132,10 +131,16 @@ function resetAE(p){ ctr['ae'+p] = [1,1,1]; saveCtr(); drawCtr(); }
 function resetGame(){
   if(!confirm('เริ่มเกมใหม่? (HP กลับเป็นค่า Max และอีเธอร์เต็ม)')) return;
   ctr.hp1 = ctr.max1; ctr.hp2 = ctr.max2; ctr.ae1 = [1,1,1]; ctr.ae2 = [1,1,1];
+  const fb = document.getElementById('cfirstBtn'); if(fb) fb.classList.add('primary');
   saveCtr(); drawCtr();
+}
+function toggleFS(){
+  if(document.fullscreenElement){ document.exitFullscreen().catch(()=>{}); }
+  else { document.documentElement.requestFullscreen().catch(()=>{}); }
 }
 let firstTimer;
 function pickFirst(){
+  document.getElementById('cfirstBtn').classList.remove('primary');
   const msg = document.getElementById('cfirstMsg');
   let n = 0;
   clearInterval(firstTimer);
