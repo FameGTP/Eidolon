@@ -32,7 +32,6 @@
   .csmall{padding:6px 14px; border-radius:16px; border:1px solid var(--border); background:var(--panel); color:var(--muted); font-size:min(1.9vh,3.4vw); cursor:pointer; white-space:nowrap;}
   .csmall:active{border-color:var(--accent); color:var(--accent);}
   .clabel{font-size:min(1.8vh,3.2vw); color:var(--muted); letter-spacing:1px; font-weight:700;}
-  .caerow{margin-top:2.5vh;}
   .caether{display:flex; align-items:center; gap:4vw;}
   .cspark{width:min(9vh,14vw); height:min(9vh,14vw); border-radius:50%; border:2px solid var(--border); background:var(--panel); color:#576480; font-size:min(5vh,7.5vw); line-height:1; cursor:pointer; flex-shrink:0; transition:color .12s, border-color .12s, text-shadow .12s;}
   .cspark.lit{color:#7dd3fc; border-color:#7dd3fc; text-shadow:0 0 12px #38bdf8, 0 0 24px #0ea5e9;}
@@ -63,7 +62,7 @@
         <span class="chp" id="chp2">30</span>
         <button class="cbig" onclick="chgHP(2,1)">+</button>
       </div>
-      <div class="crow caerow">
+      <div class="crow">
         <span class="zl"><span class="clabel">AETHER</span></span>
         <span class="zc"><div class="caether">
           <button class="cspark" id="cae2_0" onclick="toggleAE(2,0)">✦</button>
@@ -88,7 +87,7 @@
         <span class="chp" id="chp1">30</span>
         <button class="cbig" onclick="chgHP(1,1)">+</button>
       </div>
-      <div class="crow caerow">
+      <div class="crow">
         <span class="zl"><span class="clabel">AETHER</span></span>
         <span class="zc"><div class="caether">
           <button class="cspark" id="cae1_0" onclick="toggleAE(1,0)">✦</button>
@@ -129,7 +128,7 @@ function drawCtr(){
     }
   }
 }
-function chgHP(p,d){ ctr['hp'+p] = Math.max(0, Math.min(99, ctr['hp'+p]+d)); saveCtr(); drawCtr(); }
+function chgHP(p,d){ ctr['hp'+p] = Math.max(0, Math.min(ctr['max'+p], ctr['hp'+p]+d)); saveCtr(); drawCtr(); }
 function chgMax(p,d){
   ctr['max'+p] = Math.max(1, Math.min(99, ctr['max'+p]+d));
   if(ctr['hp'+p] > ctr['max'+p]) ctr['hp'+p] = ctr['max'+p];
@@ -178,7 +177,10 @@ function pickFirst(){
     msg.style.transform = 'translate(-50%,-50%)' + (n % 2 ? '' : ' rotate(180deg)');
     if(n > 14 + Math.floor(Math.random()*2)){
       clearInterval(firstTimer);
+      const winner = (n % 2) ? 1 : 2;
       msg.textContent = '🎲 ' + msg.textContent + ' เริ่มก่อน!';
+      ctr['ae'+winner] = [1,0,0];
+      saveCtr(); drawCtr();
       setTimeout(() => msg.style.display='none', 2600);
     }
   }, 120);
