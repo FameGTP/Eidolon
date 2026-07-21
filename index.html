@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Eidolon Life Counter</title>
+<title>Life counter</title>
 <meta name="theme-color" content="#0a0d13">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Eidolon LP">
+<meta name="apple-mobile-web-app-title" content="Life counter">
 <style>
-  :root{--panel:#171c26; --panel2:#1e2534; --border:#2a3347; --text:#e7ecf5; --muted:#8b96ab; --accent:#f0b429;}
+  :root{--panel:#171c26; --panel2:#1e2534; --border:#2a3347; --text:#e7ecf5; --muted:#8b96ab; --accent:#f0b429; --danger:#ef4444; --success:#22c55e;}
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{height:100%; overscroll-behavior:none;}
   body{background:#0a0d13; color:var(--text); font-family:'Segoe UI','Leelawadee UI','Noto Sans Thai',Tahoma,sans-serif; touch-action:manipulation; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent;}
@@ -28,7 +28,8 @@
   .chp{font-size:min(17vh,22vw); font-weight:900; line-height:1; min-width:2ch; text-align:center; font-variant-numeric:tabular-nums; margin:0 min(4.5vh,7vw);}
   .chp.low{color:#ef4444;}
   .cbig{width:min(11vh,16vw); height:min(11vh,16vw); border-radius:50%; border:2px solid var(--border); background:var(--panel); color:var(--text); font-size:min(5vh,7vw); font-weight:800; cursor:pointer; flex-shrink:0;}
-  .cbig:active{background:var(--accent); color:#1a1a0a; border-color:var(--accent);}
+  .cbig.cminus:active{background:var(--danger); color:#fff; border-color:var(--danger);}
+  .cbig.cplus:active{background:var(--success); color:#0a1a0f; border-color:var(--success);}
   .csmall{padding:6px 14px; border-radius:16px; border:1px solid var(--border); background:var(--panel); color:var(--muted); font-size:min(1.9vh,3.4vw); cursor:pointer; white-space:nowrap;}
   .csmall:active{border-color:var(--accent); color:var(--accent);}
   .clabel{font-size:min(1.8vh,3.2vw); color:var(--muted); letter-spacing:1px; font-weight:700;}
@@ -58,12 +59,12 @@
         <button class="csmall" onclick="chgMax(2,1)">Max +</button>
       </div>
       <div class="crow">
-        <button class="cbig" onclick="chgHP(2,-1)">−</button>
+        <button class="cbig cminus" onclick="chgHP(2,-1)">−</button>
         <span class="chp" id="chp2">30</span>
-        <button class="cbig" onclick="chgHP(2,1)">+</button>
+        <button class="cbig cplus" onclick="chgHP(2,1)">+</button>
       </div>
       <div class="crow">
-        <span class="zl"><span class="clabel">AETHER</span></span>
+        <span class="zl"></span>
         <span class="zc"><div class="caether">
           <button class="cspark" id="cae2_0" onclick="toggleAE(2,0)">✦</button>
           <button class="cspark" id="cae2_1" onclick="toggleAE(2,1)">✦</button>
@@ -83,12 +84,12 @@
         <button class="csmall" onclick="chgMax(1,1)">Max +</button>
       </div>
       <div class="crow">
-        <button class="cbig" onclick="chgHP(1,-1)">−</button>
+        <button class="cbig cminus" onclick="chgHP(1,-1)">−</button>
         <span class="chp" id="chp1">30</span>
-        <button class="cbig" onclick="chgHP(1,1)">+</button>
+        <button class="cbig cplus" onclick="chgHP(1,1)">+</button>
       </div>
       <div class="crow">
-        <span class="zl"><span class="clabel">AETHER</span></span>
+        <span class="zl"></span>
         <span class="zc"><div class="caether">
           <button class="cspark" id="cae1_0" onclick="toggleAE(1,0)">✦</button>
           <button class="cspark" id="cae1_1" onclick="toggleAE(1,1)">✦</button>
